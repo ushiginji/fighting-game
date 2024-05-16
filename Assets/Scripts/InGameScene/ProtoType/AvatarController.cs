@@ -12,19 +12,19 @@ public class AvatarController : MonoBehaviourPunCallbacks
             var input = Vector3.zero;
             if (Input.GetKey(KeyCode.UpArrow)) 
             {
-                input = Vector3.forward;
+                input += Vector3.forward;
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-                input = Vector3.back;
+                input += Vector3.back;
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                input = Vector3.right;
+                input += Vector3.right;
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                input = Vector3.left;
+                input += Vector3.left;
             }
 
             transform.Translate(6f * Time.deltaTime * input);
