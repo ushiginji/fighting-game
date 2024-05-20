@@ -90,14 +90,14 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
                         {
                             weapon.SetActive(true);
                         }
-                        // photonView.RPC(nameof(Attack), RpcTarget.All);
+                        //photonView.RPC(nameof(Attack), RpcTarget.All);
                     }
                     else
                     {
                         var bullet = PhotonNetwork.Instantiate("ProtoType/Bullet", transform.position, Quaternion.identity);
                         bullet.transform.rotation = transform.rotation;
                         bullet.GetComponent<AvatarAttack>().OwnerId = id;
-                        // photonView.RPC(nameof(Fire), RpcTarget.All);
+                        //photonView.RPC(nameof(Fire), RpcTarget.All);
                     }
                 }
             }
@@ -129,6 +129,11 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             renderer.material = materials[(int)type];
+            rigidbody.useGravity = isActive;
+            if (!isActive)
+            {               
+                rigidbody.velocity = Vector3.zero;
+            }
         }
     }
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -136,10 +141,14 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(type);
+            stream.SendNext(isActive);
+            stream.SendNext(weapon.activeSelf);
         }
         else
         {
             type = (Type)stream.ReceiveNext();
+            isActive = (bool)stream.ReceiveNext();
+            weapon.SetActive((bool)stream.ReceiveNext());
         }
     }
    
@@ -156,7 +165,7 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void Fire()
     {
-        var bullet = PhotonNetwork.Instantiate("ProtoType/Bullet", transform.position, Quaternion.identity);
+        var bullet = PhotonNetwork.Instantiate("ProtoType/Bullet", transform.position + transform.forward * 1.5f, Quaternion.identity);
         bullet.transform.rotation = transform.rotation;
         bullet.GetComponent<AvatarAttack>().OwnerId = id;
     }

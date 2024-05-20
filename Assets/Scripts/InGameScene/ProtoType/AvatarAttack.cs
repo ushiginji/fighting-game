@@ -51,18 +51,68 @@ public class AvatarAttack : MonoBehaviourPunCallbacks
             {
                 transform.Translate(speed * Time.deltaTime * Vector3.forward);
                 timer -= Time.deltaTime;
-                if(timer < 0)
+                if (timer < 0)
                 {
-                    Destroy(gameObject);
+                    PhotonNetwork.Destroy(gameObject);
                 }
             }
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.tag == "Player")
+        {
+            if (other.gameObject.GetPhotonView().OwnerActorNr != photonView.OwnerActorNr)
+            {
+                Debug.Log("Hit!");
+                Vector3 knockBackVec = (other.transform.position - transform.position).normalized;
+                if (type == Type.InFight)
+                {
+                    knockBackVec *= 10.0f;
+                }
+                else
+                {
+                    knockBackVec *= 5.0f;
+                }
 
+                Rigidbody rigidbody = other.GetComponent<Rigidbody>();
+                rigidbody.AddForce(knockBackVec, ForceMode.Impulse);
+
+                if (!photonView.IsMine)
+                {
+                    if (type == Type.OutRange)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+                
+            }
+
+
+        }
+
+
+        if (other.tag == "Stage")
+        {
+            if (type == Type.OutRange)
+            {
+                Destroy(gameObject);
+            }
+            if (photonView.IsMine)
+            {
+               
+            }
+        }
+       
+        //photonView.RPC(nameof(HitAttack), RpcTarget.All,other);
+    }
+
+    [PunRPC]
+
+    private void HitAttack(Collider other)
+    {
         if (other.tag == "Player")
         {
             AvatarController avatarController = other.GetComponent<AvatarController>();
@@ -88,13 +138,14 @@ public class AvatarAttack : MonoBehaviourPunCallbacks
                 }
             }
 
-            
+
         }
-           
+
 
         if (other.tag == "Stage" && type == Type.OutRange)
         {
             Destroy(gameObject);
         }
     }
+
 }
