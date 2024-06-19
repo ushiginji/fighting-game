@@ -41,6 +41,9 @@ MonoBehaviour:
   - RespawnSpaceship
   - Attack
   - HitAttack
+  - AddPlayer
+  - Damaged
+  - HitBullet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
