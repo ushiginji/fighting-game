@@ -24,7 +24,6 @@ public class AvatarAttack : MonoBehaviourPunCallbacks
     private int id = -1;
     private int ownerId = -1;
 
-    bool isActive = true;
 
     [SerializeField] private ObjectManager objectManager = null;
 

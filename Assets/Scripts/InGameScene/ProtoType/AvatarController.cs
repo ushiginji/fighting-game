@@ -37,6 +37,9 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] private ObjectManager _objectManager = null;
 
+    private bool _youWin = false;
+    public bool YouWin { get { return _youWin; } }
+
     private void Start()
     {
         renderer = gameObject.GetComponent<Renderer>();
@@ -50,7 +53,8 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
             virtualCamera.Follow = gameObject.transform;
             virtualCamera.LookAt = gameObject.transform;
         }
-        _objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();   
+        _objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        _objectManager.AddPlayer(this);
     }
     private void Update()
     {
@@ -143,6 +147,15 @@ public class AvatarController : MonoBehaviourPunCallbacks, IPunObservable
             {               
                 rigidbody.velocity = Vector3.zero;
             }
+        }
+
+        if(_objectManager.GetPlayerNum() == 1 && isActive)
+        {
+            _youWin = true;
+        }
+        else
+        {
+            _youWin = false;
         }
     }
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

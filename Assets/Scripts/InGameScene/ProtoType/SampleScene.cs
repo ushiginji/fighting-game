@@ -42,14 +42,12 @@ public class SampleScene : MonoBehaviourPunCallbacks
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var p in players)
         {
-            _objectManager.AddPlayer(p);
+            //_objectManager.AddPlayer(p);
             p.GetComponent<AvatarController>().Init(_objectManager);
         }
         var position = new Vector3(Random.Range(-3f, 3f), 3.0f, Random.Range(-3f, 3f));
         GameObject player = PhotonNetwork.Instantiate("ProtoType/Avatar", position, Quaternion.identity);
         Debug.Log(player);
-        //photonView.RPC(nameof(AddPlayer), RpcTarget.All, player);
-        _objectManager.AddPlayer(player);
         player.GetComponent<AvatarController>().Init(_objectManager);
     }
 
@@ -57,7 +55,7 @@ public class SampleScene : MonoBehaviourPunCallbacks
     private void AddPlayer(GameObject player)
     {
         Debug.Log(player);
-        _objectManager.AddPlayer(player);
+        //_objectManager.AddPlayer(player);
         player.GetComponent<AvatarController>().Init(_objectManager);
     }
 }
