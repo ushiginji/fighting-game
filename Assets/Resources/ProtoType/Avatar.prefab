@@ -162,6 +162,8 @@ MonoBehaviour:
   weapon: {fileID: 6308869986850682122}
   rotateSpeed: 50
   respawnTime: 4
+  _bullet: {fileID: 5363329282872988536, guid: fd9c09c801dfd70408023a7f7fe7da55, type: 3}
+  _objectManager: {fileID: 0}
 --- !u!114 &7794975847654719593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +490,8 @@ MonoBehaviour:
   type: 0
   rotateSpeed: 500
   speed: 12
-  timer: 2
+  objectManager: {fileID: 0}
+  power: 10
 --- !u!114 &6689680214054619907
 MonoBehaviour:
   m_ObjectHideFlags: 0

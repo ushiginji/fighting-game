@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -7760462395606047970}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Attack
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,8 @@ MonoBehaviour:
   type: 1
   rotateSpeed: 10
   speed: 12
-  timer: 2
+  objectManager: {fileID: 0}
+  power: 5
 --- !u!114 &8238665392067589397
 MonoBehaviour:
   m_ObjectHideFlags: 0
