@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Attack
   - Stage
+  - New tag
+  - CountdownText
   layers:
   - Default
   - TransparentFX
