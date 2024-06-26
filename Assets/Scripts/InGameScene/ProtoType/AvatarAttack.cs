@@ -2,6 +2,7 @@
 // https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/2e3520
 
 using Photon.Pun;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 public class AvatarAttack : MonoBehaviourPunCallbacks
